@@ -6,3 +6,5 @@ use App\Http\Controllers\API\ProductController;
 Route::get('/product', [ProductController::class, 'index'])->name('product');
 Route::post('/product', [ProductController::class, 'store'])->name('product.store');
 Route::put('/product/{product}', [ProductController::class, 'update'])->name('product.update');
+Route::patch('/product/{product}', [ProductController::class, 'update'])->name('product.patch');
+Route::delete('/product/{product}', [ProductController::class, 'destroy'])->name('product.destroy');
