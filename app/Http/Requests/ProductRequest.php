@@ -25,6 +25,7 @@ class ProductRequest extends FormRequest
                 'price' => 'sometimes|numeric',
                 'description' => 'nullable|string',
                 'stock' => 'sometimes|integer|min:0',
+                'id_kategori' => 'sometimes|exists:kategoris,id',
             ];
         }
 
@@ -33,6 +34,7 @@ class ProductRequest extends FormRequest
             'price' => 'required|numeric',
             'description' => 'nullable|string',
             'stock' => 'required|integer|min:0',
+            'id_kategori' => 'required|exists:kategoris,id',
         ];
     }
 }

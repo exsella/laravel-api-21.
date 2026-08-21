@@ -16,7 +16,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->paginate(10);
+        $products = Product::with('kategori')
+            ->latest()
+            ->paginate(10);
 
         return response()->json(
             new ProductCollection($products),
@@ -34,7 +36,9 @@ class ProductController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Product created successfully',
-            'data' => new ProductResource($product),
+            'data' => new ProductResource(
+                $product->load('kategori')
+            ),
         ], Response::HTTP_CREATED);
     }
 
@@ -43,6 +47,8 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        $product->load('kategori');
+
         return response()->json([
             'status' => true,
             'message' => 'Product retrieved successfully',
@@ -60,7 +66,9 @@ class ProductController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Product updated successfully',
-            'data' => new ProductResource($product),
+            'data' => new ProductResource(
+                $product->load('kategori')
+            ),
         ], Response::HTTP_OK);
     }
 

@@ -15,8 +15,20 @@ class ProductResource extends JsonResource
             'price' => $this->price,
             'description' => $this->description,
             'stock' => $this->stock,
-            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
-            'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
+
+            // Relasi kategori
+            'id_kategori' => $this->id_kategori,
+            'kategori' => $this->kategori
+                ? $this->kategori->name
+                : null,
+
+            'created_at' => $this->created_at
+                ? $this->created_at->format('Y-m-d H:i:s')
+                : null,
+
+            'updated_at' => $this->updated_at
+                ? $this->updated_at->format('Y-m-d H:i:s')
+                : null,
         ];
     }
 }
