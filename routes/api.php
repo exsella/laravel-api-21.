@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\KategoriController;
+use App\Http\Controllers\API\AuthController;
 
 // ====================
 // ROUTE PRODUCT
@@ -48,3 +49,28 @@ Route::patch('/kategori/{kategori}', [KategoriController::class, 'update'])
 
 Route::delete('/kategori/{kategori}', [KategoriController::class, 'destroy'])
     ->name('kategori.destroy');
+
+
+    // ====================
+// ROUTE AUTH
+// ====================
+
+Route::prefix('auth')->name('auth.')->group(function () {
+
+    // Register & Login tidak membutuhkan token
+    Route::post('/register', [AuthController::class, 'register'])
+        ->name('register');
+
+    Route::post('/login', [AuthController::class, 'login'])
+        ->name('login');
+
+    // Route yang membutuhkan JWT
+    Route::middleware('jwt')->group(function () {
+
+        Route::get('/profile', [AuthController::class, 'profile'])
+            ->name('profile');
+
+        Route::post('/logout', [AuthController::class, 'logout'])
+            ->name('logout');
+    });
+});
